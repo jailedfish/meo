@@ -47,7 +47,7 @@ class Organism(ABC):
         Выполняет действие организма за один шаг симуляции.
         :param ecosystem: Ссылка на экосистему для взаимодействия.
         """
-        pass
+        return
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}({self.name}, health={self.health}, energy={self.energy})"
@@ -112,10 +112,10 @@ class Predator(Organism):
             self.energy += 15   # получаем энергию от добычи
             self.health = min(self.health + 5, 100)
             return True
-        else:
-            # Неудачная охота – тратим энергию
-            self.energy -= 10
-            return False
+
+        # Неудачная охота – тратим энергию
+        self.energy -= 10
+        return False
 
     def act(self, ecosystem: 'Ecosystem') -> None:
         """Действие хищника: охота на ближайшее травоядное."""
@@ -142,3 +142,4 @@ class Predator(Organism):
         else:
             # Иначе просто тратим энергию
             self.energy -= 3
+            
