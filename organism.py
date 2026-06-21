@@ -142,4 +142,4 @@ class Predator(Organism):
         else:
             # Иначе просто тратим энергию
             self.energy -= 3
-            
+       
