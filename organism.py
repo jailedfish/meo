@@ -108,7 +108,7 @@ class Predator(Organism):
             return False
         # Случайный фактор успеха (шанс 70%)
         if random.random() < 0.7:
-            prey.take_damage(self.attack_power)
+            prey.take_damage(self.health)
             self.energy += 15   # получаем энергию от добычи
             self.health = min(self.health + 5, 100)
             return True
