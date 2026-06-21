@@ -95,3 +95,50 @@ class Herbivore(Organism):
             # Иначе тратим энергию на движение
             self.energy -= 5
             
+class Predator(Organism):
+    """Хищник – охотится на травоядных."""
+
+    def __init__(self, name: str, health: int, energy: int, attack_power: int = 15):
+        super().__init__(name, health, energy)
+        self.attack_power = attack_power
+
+    def hunt(self, prey: Herbivore) -> bool:
+        """Охота на травоядное. Возвращает True, если охота удалась."""
+        if not prey.is_alive():
+            return False
+        # Случайный фактор успеха (шанс 70%)
+        if random.random() < 0.7:
+            prey.take_damage(self.attack_power)
+            self.energy += 15   # получаем энергию от добычи
+            self.health = min(self.health + 5, 100)
+            return True
+        else:
+            # Неудачная охота – тратим энергию
+            self.energy -= 10
+            return False
+
+    def act(self, ecosystem: 'Ecosystem') -> None:
+        """Действие хищника: охота на ближайшее травоядное."""
+        if not self.is_alive():
+            return
+
+        self.aging()
+        if not self.is_alive():
+            return
+
+        # Если энергия низкая – ищем добычу
+        if self.energy < 40:
+            # Найти первое живое травоядное в экосистеме
+            prey = ecosystem.find_herbivore()
+            if prey:
+                success = self.hunt(prey)
+                if success:
+                    print(f"{self.name} съел {prey.name}")
+                else:
+                    print(f"{self.name} не смог поймать {prey.name}")
+            else:
+                print(f"{self.name} не нашёл добычи, голодает")
+                self.energy -= 5
+        else:
+            # Иначе просто тратим энергию
+            self.energy -= 3
