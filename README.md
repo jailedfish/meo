@@ -5,4 +5,4 @@
    2. `Organism` class implementations **[Finished]**
    3. Ecosystem behavior **[Finished]**
    4. Merge `Organism` implementations **[Finished]**
-2. Add tests **[Not started, Blocked by 1]**
+2. Add tests **[Started]**
